@@ -1,0 +1,71 @@
+**Final Report: Performance Analysis and Ranking of Binance Accounts**
+
+---
+
+## **1. Introduction**
+This report presents a detailed analysis of historical trade data from various Binance accounts over a 90-day period. The goal of this analysis is to compute key financial metrics for each account, rank them based on performance, and provide a list of the top 20 accounts.
+
+## **2. Data Preprocessing**
+### **2.1 Dataset Overview**
+The dataset consists of:
+- **Port_IDs**: Unique identifier for each account.
+- **Trade_History**: A JSON-like structure containing trade details, including timestamp, asset, side (BUY/SELL), price, quantity, and realized profit/loss.
+
+### **2.2 Data Cleaning and Parsing**
+- Missing values in `Trade_History` were identified and removed.
+- The `Trade_History` column was converted from a JSON-like string into a structured format.
+- Key trade details for each account were extracted into separate DataFrames for further analysis.
+
+## **3. Financial Metrics Calculation**
+For each account, the following financial metrics were computed:
+
+### **3.1 Return on Investment (ROI)**
+\[ ROI = \frac{\text{Net Profit}}{\text{Total Investment}} \times 100 \]
+- **Net Profit**: Sum of `realizedProfit` across all trades.
+- **Total Investment**: Sum of `quantity` used in all trades.
+
+### **3.2 Profit and Loss (PnL)**
+\[ PnL = \sum \text{realizedProfit} \]
+- Measures the total profitability or loss of an account.
+
+### **3.3 Sharpe Ratio**
+\[ Sharpe Ratio = \frac{\text{Mean Returns}}{\text{Standard Deviation of Returns}} \]
+- Measures risk-adjusted returns. A higher Sharpe Ratio indicates better returns per unit of risk.
+
+### **3.4 Maximum Drawdown (MDD)**
+\[ MDD = \frac{\text{Peak Portfolio Value} - \text{Lowest Portfolio Value}}{\text{Peak Portfolio Value}} \]
+- Represents the worst percentage drop in portfolio value from peak to trough.
+
+### **3.5 Win Rate & Positions**
+- **Win Rate** = Percentage of trades that resulted in a profit.
+- **Win Positions** = Number of profitable trades.
+- **Total Positions** = Total number of trades executed.
+
+## **4. Ranking Methodology**
+Each account was ranked based on a weighted scoring system:
+\[ Score = 0.4 \times ROI + 0.2 \times Sharpe Ratio + 0.2 \times Win Rate + 0.1 \times PnL - 0.1 \times MDD \]
+
+- **ROI (40%)**: Higher ROI is preferred.
+- **Sharpe Ratio (20%)**: Penalizes volatile returns.
+- **Win Rate (20%)**: Measures consistency in profitability.
+- **PnL (10%)**: Prioritizes accounts with higher profits.
+- **MDD (-10%)**: Penalizes accounts with higher drawdowns.
+
+The final rankings were determined based on the computed scores, and the top 20 accounts were selected.
+
+## **5. Findings & Insights**
+- Accounts with high ROI and Sharpe Ratios generally performed well.
+- Some accounts had high win rates but lower PnL, indicating small but frequent profits.
+- Accounts with significant drawdowns (high MDD) were penalized in rankings due to increased risk.
+- A balanced approach between profitability and risk-adjusted returns led to better ranking scores.
+
+## **6. Deliverables**
+- **Jupyter Notebook/Python Script**: Contains the full analysis and computations.
+- **Calculated Metrics CSV (calculated_metrics.csv)**: Includes all computed metrics for each account.
+- **Top 20 Accounts CSV (top_20_accounts.csv)**: Lists the top 20 ranked accounts.
+- **This Final Report**: Summarizes methodology, findings, and assumptions.
+
+---
+
+This report provides a comprehensive assessment of Binance trading accounts, identifying top-performing traders based on quantitative metrics and ranking methodology.
+
